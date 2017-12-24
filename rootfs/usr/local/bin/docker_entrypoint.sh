@@ -12,8 +12,8 @@ if [ ! -d /var/lib/airsonic ]; then
 fi
 
 # Copy default subsonic.properties file
-if [ ! -e /var/lib/subsonic/subsonic.properties ]; then
-    cp /etc/subsonic/subsonic.properties /var/lib/subsonic/.
+if [ ! -e /var/lib/airsonic/airsonic.properties ]; then
+    cp /etc/airsonic/airsonic.properties /var/lib/airsonic/.
 fi
 
 # Create symlinks for transcoding
@@ -55,14 +55,11 @@ cd /usr/lib/airsonic
 # Start subsonic in console mode
 exec gosu airsonic \
     /usr/bin/java \
-        -Dsubsonic.contextPath=/ \
-        -Dsubsonic.defaultMusicFolder=/music \
-        -Dsubsonic.defaultPlaylistFolder=/playlists \
-        -Dsubsonic.defaultPodcastFolder=/podcasts \
-        -Dsubsonic.home=/var/lib/subsonic \
-        -Dsubsonic.host=0.0.0.0 \
-        -Dsubsonic.httpsPort=4443 \
-        -Dsubsonic.port=4040 \
+        -Dairsonic.defaultMusicFolder=/music \
+        -Dairsonic.defaultPlaylistFolder=/playlists \
+        -Dairsonic.defaultPodcastFolder=/podcasts \
+        -Dairsonic.home=/var/lib/subsonic \
+        -Dserver.port=4040 \
         -Xmx512m \
         -Djava.awt.headless=true \
         -jar /usr/lib/airsonic/airsonic.war
