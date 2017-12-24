@@ -6,8 +6,8 @@ cp /usr/share/zoneinfo/$TZ /etc/localtime
 echo $TZ > /etc/timezone
 
 # Make sure volumes are mounted correctly
-if [ ! -d /var/lib/subsonic ]; then
-    printf "\nERROR: volume /var/lib/subsonic not mounted.\n" >&2
+if [ ! -d /var/lib/airsonic ]; then
+    printf "\nERROR: volume /var/lib/airsonic not mounted.\n" >&2
     exit 1
 fi
 
@@ -17,43 +17,43 @@ if [ ! -e /var/lib/subsonic/subsonic.properties ]; then
 fi
 
 # Create symlinks for transcoding
-if [ ! -e /var/lib/subsonic/transcode/ffmpeg ]; then
-    mkdir -p /var/lib/subsonic/transcode
-    ln -s /usr/bin/ffmpeg /var/lib/subsonic/transcode/ffmpeg
+if [ ! -e /var/lib/airsonic/transcode/ffmpeg ]; then
+    mkdir -p /var/lib/airsonic/transcode
+    ln -s /usr/bin/ffmpeg /var/lib/airsonic/transcode/ffmpeg
 fi
-if [ ! -e /var/lib/subsonic/transcode/lame ]; then
-    mkdir -p /var/lib/subsonic/transcode
-    ln -s /usr/bin/lame /var/lib/subsonic/transcode/lame
+if [ ! -e /var/lib/airsonic/transcode/lame ]; then
+    mkdir -p /var/lib/airsonic/transcode
+    ln -s /usr/bin/lame /var/lib/airsonic/transcode/lame
 fi
-if [ ! -e /var/lib/subsonic/transcode/flac ]; then
-    mkdir -p /var/lib/subsonic/transcode
-    ln -s /usr/bin/flac /var/lib/subsonic/transcode/flac
+if [ ! -e /var/lib/airsonic/transcode/flac ]; then
+    mkdir -p /var/lib/airsonic/transcode
+    ln -s /usr/bin/flac /var/lib/airsonic/transcode/flac
 fi
-if [ ! -e /var/lib/subsonic/transcode/xmp ]; then
-    mkdir -p /var/lib/subsonic/transcode
-    ln -s /usr/bin/xmp /var/lib/subsonic/transcode/xmp
+if [ ! -e /var/lib/airsonic/transcode/xmp ]; then
+    mkdir -p /var/lib/airsonic/transcode
+    ln -s /usr/bin/xmp /var/lib/airsonic/transcode/xmp
 fi
 
 # Fix user and group ownerships
 MOUNT_MODE=`mount | grep "/music" | awk -F "(" '{print $2}' | cut -c -2`
 if [ $MOUNT_MODE == "rw" ]; then
-    chown -R subsonic:subsonic /music
+    chown -R airsonic:airsonic /music
 fi
 MOUNT_MODE=`mount | grep "/playlists" | awk -F "(" '{print $2}' | cut -c -2`
 if [ $MOUNT_MODE == "rw" ]; then
-    chown -R subsonic:subsonic /playlists
+    chown -R airsonic:airsonic /playlists
 fi
 MOUNT_MODE=`mount | grep "/podcasts" | awk -F "(" '{print $2}' | cut -c -2`
 if [ $MOUNT_MODE == "rw" ]; then
-    chown -R subsonic:subsonic /podcasts
+    chown -R airsonic:airsonic /podcasts
 fi
-chown -R subsonic:subsonic /var/lib/subsonic
+chown -R airsonic:airsonic /var/lib/airsonic
 
 # Change workdir
-cd /usr/lib/subsonic
+cd /usr/lib/airsonic
 
 # Start subsonic in console mode
-exec gosu subsonic \
+exec gosu airsonic \
     /usr/bin/java \
         -Dsubsonic.contextPath=/ \
         -Dsubsonic.defaultMusicFolder=/music \
@@ -65,4 +65,4 @@ exec gosu subsonic \
         -Dsubsonic.port=4040 \
         -Xmx512m \
         -Djava.awt.headless=true \
-        -jar /usr/lib/subsonic/subsonic-booter-jar-with-dependencies.jar
+        -jar /usr/lib/airsonic/airsonic.war
