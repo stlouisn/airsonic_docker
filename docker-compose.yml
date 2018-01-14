@@ -1,20 +1,19 @@
-version: '2.2'
+version: '2.3'
 
 services:
 
   subsonic:
-    image: stlouisn/subsonic
-    container_name: subsonic
-    hostname: subsonic
+    image: stlouisn/airsonic:latest
+    container_name: airsonic
+    hostname: airsonic
     environment:
       - TZ=UTC
       - LC_ALL=C.UTF-8
     restart: always
     volumes:
-      - ./subsonic/config:/var/lib/subsonic:rw
-      - ./subsonic/music:/music:rw
-      - ./subsonic/playlists:/playlists:rw
-      - ./subsonic/podcasts:/podcasts:rw
+      - ./airsonic/config:/var/lib/airsonic:rw
+      - ./airsonic/music:/music:rw
+      - ./airsonic/playlists:/playlists:rw
+      - ./airsonic/podcasts:/podcasts:rw
     ports:
       - 4040
-      - 4443
