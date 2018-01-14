@@ -2,13 +2,10 @@ version: '2.3'
 
 services:
 
-  subsonic:
+  airsonic:
     image: stlouisn/airsonic:latest
     container_name: airsonic
     hostname: airsonic
-    environment:
-      - TZ=UTC
-      - LC_ALL=C.UTF-8
     restart: always
     volumes:
       - ./airsonic/config:/var/lib/airsonic:rw
