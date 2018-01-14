@@ -28,24 +28,23 @@ RUN \
     apt-get update && \
 
     # Install Java
-    apt install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends \
         default-jre-headless && \
 
     # Install airsonic
-    curl $DOWNLOAD_URL -o /tmp/airsonic.tar.gz && \
+    mkdir -p /usr/lib/airsonic && \
+    curl -L $DOWNLOAD_URL -o /usr/lib/airsonic/airsonic.war && \
     chown -R airsonic:airsonic /usr/lib/airsonic && \
-    tar xzvf /tmp/airsonic.tar.gz -C /usr/lib/airsonic && \
-    chown -R airsonic:airsonic /usr/lib/airsonic
 
-    # Install codecs
-    apt install -y --no-install-recommends \
-        ffmpeg \
-        flac \
-        lame && \
+#    # Install codecs
+#    apt-get install -y --no-install-recommends \
+#        ffmpeg \
+#        flac \
+#        lame && \
 
     # Clean apt-cache
-    apt autoremove -y --purge && \
-    apt autoclean -y && \
+    apt-get autoremove -y --purge && \
+    apt-get autoclean -y && \
 
     # Cleanup temporary folders
     rm -rf \
@@ -59,6 +58,6 @@ ENV JAVA_HOME=/usr/lib/jvm/default-java/jre
 VOLUME /music \
        /playlists \
        /podcasts \
-       /var/lib/subsonic
+       /var/lib/airsonic
 
 ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
