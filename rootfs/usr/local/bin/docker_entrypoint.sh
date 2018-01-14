@@ -2,7 +2,7 @@
 
 # Set timezone
 TZ=${TZ:-UTC}
-cp /usr/share/zoneinfo/$TZ /etc/localtime
+ln -fs /usr/share/zoneinfo/$TZ /etc/localtime
 echo $TZ > /etc/timezone
 
 # Make sure volumes are mounted correctly
