@@ -9,25 +9,21 @@ branches:
 env:
   global:
     - BUILD_DATE="`date -u +%Y-%m-%dT%H:%M:%SZ`"
-    - BUILD_NUMBER="${TRAVIS_BUILD_NUMBER}"
-    - DOCKER_DESCRIPTION="music streamer"
+    - BUILD_NUMBER="$TRAVIS_BUILD_NUMBER"
+    - DISTRIB_ID="`(docker pull stlouisn/ubuntu:rolling && docker run -it --rm stlouisn/ubuntu:rolling /bin/bash -c 'cat etc/lsb-release') | grep DISTRIB_ID | awk -F '=' {'print $2'}`"
+    - DISTRIB_RELEASE="`(docker pull stlouisn/ubuntu:rolling && docker run -it --rm stlouisn/ubuntu:rolling /bin/bash -c 'cat etc/lsb-release') | grep DISTRIB_RELEASE | awk -F '=' {'print $2'}`"
+    - DISTRIB_CODENAME="`(docker pull stlouisn/ubuntu:rolling && docker run -it --rm stlouisn/ubuntu:rolling /bin/bash -c 'cat etc/lsb-release') | grep DISTRIB_CODENAME | awk -F '=' {'print $2'}`"
+    - DOCKER_DESCRIPTION="web-based media streaming"
     - DOCKER_MAINTAINER="stlouisn"
     - DOCKER_NAME="airsonic"
-    - DOCKER_URL="https://github.com/airsonic/airsonic/"
-    - OS_NAME="ubuntu"
-    - OS_VERSION="`curl -s https://raw.githubusercontent.com/tianon/docker-brew-ubuntu-core/master/rolling`"
+    - DOCKER_URL="https://airsonic.github.io/"
     - SCHEMA_VERSION="1.0"
     - VCS_REF="`git rev-parse --short HEAD`"
     - VCS_URL="`git remote get-url origin | head -c-5`"
-
   matrix:
     - DOCKER_TAG="latest"
-      DOCKER_VERSION="unknown"
-
-before_install:
-  - sudo apt-get update -q
-  - sudo apt-get upgrade -q -y
-  - docker version
+      DOCKER_VERSION="`curl -s https://airsonic.github.io/download/ | grep 'airsonic.war' | head -n 1 | awk -F '/v' {'print $2'} | awk -F '/' {'print $1'}`"
+      DOWNLOAD_URL="https://github.com/airsonic/airsonic/releases/download/v{$DOCKER_VERSION}/airsonic.war"
 
 before_install:
   - sudo apt-get update -q
@@ -35,24 +31,27 @@ before_install:
   - docker version
 
 install:
-  - chmod 0744 rootfs/usr/local/bin/docker_entrypoint.sh
+  - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' Dockerfile
+  - chmod 0544 rootfs/usr/local/bin/*.sh
 
 before_script:
-- sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' Dockerfile
- 
+  - curl -o airsonic.war ${DOWNLOAD_URL}
+  - ls -la
+
 script:
   - >
     docker build
-    --label org.label-schema.build-date="${BUILD_DATE}"
-    --label org.label-schema.build-number="${BUILD_NUMBER}"
-    --label org.label-schema.description="${DOCKER_DESCRIPTION}"
-    --label org.label-schema.maintainer="${DOCKER_MAINTAINER}"
-    --label org.label-schema.name="${DOCKER_NAME}"
-    --label org.label-schema.url="${DOCKER_URL}"
-    --label org.label-schema.version="${DOCKER_VERSION}"
-    --label org.label-schema.schema-version="${SCHEMA_VERSION}"
-    --label org.label-schema.vcs-ref="${VCS_REF}"
-    --label org.label-schema.vcs-url="${VCS_URL}"
+    --build-arg DOWNLOAD_URL="$DOWNLOAD_URL"
+    --label org.label-schema.build-date="$BUILD_DATE"
+    --label org.label-schema.build-number="$BUILD_NUMBER"
+    --label org.label-schema.description="$DOCKER_DESCRIPTION"
+    --label org.label-schema.maintainer="$DOCKER_MAINTAINER"
+    --label org.label-schema.name="$DOCKER_NAME"
+    --label org.label-schema.url="$DOCKER_URL"
+    --label org.label-schema.version="$DOCKER_VERSION"
+    --label org.label-schema.schema-version="$SCHEMA_VERSION"
+    --label org.label-schema.vcs-ref="$VCS_REF"
+    --label org.label-schema.vcs-url="$VCS_URL"
     --tag ${DOCKER_USERNAME}/${DOCKER_NAME}:${DOCKER_TAG}
     --pull .
 
