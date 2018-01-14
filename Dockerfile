@@ -36,12 +36,6 @@ RUN \
     curl -L $DOWNLOAD_URL -o /usr/lib/airsonic/airsonic.war && \
     chown -R airsonic:airsonic /usr/lib/airsonic && \
 
-#    # Install codecs
-#    apt-get install -y --no-install-recommends \
-#        ffmpeg \
-#        flac \
-#        lame && \
-
     # Clean apt-cache
     apt-get autoremove -y --purge && \
     apt-get autoclean -y && \
