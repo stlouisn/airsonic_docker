@@ -1,17 +1,12 @@
-### Subsonic Docker
+### Airsonic Docker
 
-*Personal Media Streamer*
+*Web-Based Media Streaming*
 
-[![Version](https://images.microbadger.com/badges/version/stlouisn/subsonic.svg)](https://microbadger.com/images/stlouisn/subsonic)
-[![Commit](https://images.microbadger.com/badges/commit/stlouisn/subsonic.svg)](https://microbadger.com/images/stlouisn/subsonic)
-[![Layers](https://images.microbadger.com/badges/image/stlouisn/subsonic.svg)](https://microbadger.com/images/stlouisn/subsonic)
-[![Build](https://travis-ci.org/stlouisn/subsonic_docker.svg?branch=master)](https://travis-ci.org/stlouisn/subsonic_docker)
-
-### Feature Roadmap
-
-- Implement self-signed SSL certificate
-- Use external [MySQL](http://www.subsonic.org/pages/database.jsp) database
+[![Version](https://images.microbadger.com/badges/version/stlouisn/airsonic.svg)](https://microbadger.com/images/stlouisn/airsonic)
+[![Commit](https://images.microbadger.com/badges/commit/stlouisn/airsonic.svg)](https://microbadger.com/images/stlouisn/airsonic)
+[![Layers](https://images.microbadger.com/badges/image/stlouisn/airsonic.svg)](https://microbadger.com/images/stlouisn/airsonic)
+[![Build](https://travis-ci.org/stlouisn/airsonic_docker.svg?branch=master)](https://travis-ci.org/stlouisn/airsonic_docker)
 
 ### Links
 
-http://www.subsonic.org/
+https://airsonic.github.io/
