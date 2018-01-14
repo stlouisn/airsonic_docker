@@ -1,30 +1,12 @@
-FROM ubuntu:rolling
+FROM stlouisn/ubuntu:rolling
 
 COPY rootfs /
+
+ARG DOWNLOAD_URL
 
 RUN \
 
     export DEBIAN_FRONTEND=noninteractive && \
-
-    # Update apt-cache
-    apt update && \
-
-    # Install tzdata
-    apt install -y --no-install-recommends \
-        tzdata && \
-
-    # Install SSL
-    apt install -y --no-install-recommends \
-        ca-certificates \
-        openssl && \
-
-    # Install curl
-    apt install -y --no-install-recommends \
-        curl && \
-
-    # Install gosu
-    apt install -y --no-install-recommends \
-        gosu && \
 
     # Create airsonic group
     groupadd \
@@ -42,20 +24,24 @@ RUN \
         --uid 10000 \
         airsonic && \
 
+    # Update apt-cache
+    apt-get update && \
+
     # Install Java
     apt install -y --no-install-recommends \
         default-jre-headless && \
 
     # Install airsonic
-    wget ${AIRSONIC_DOWNLOAD} && \
+    curl $DOWNLOAD_URL -o /tmp/airsonic.tar.gz && \
     chown -R airsonic:airsonic /usr/lib/airsonic && \
+    tar xzvf /tmp/airsonic.tar.gz -C /usr/lib/airsonic && \
+    chown -R airsonic:airsonic /usr/lib/airsonic
 
     # Install codecs
     apt install -y --no-install-recommends \
         ffmpeg \
         flac \
-        lame \
-        xmp && \
+        lame && \
 
     # Clean apt-cache
     apt autoremove -y --purge && \
