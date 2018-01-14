@@ -53,7 +53,7 @@ exec gosu airsonic /usr/bin/java \
     -Dairsonic.defaultMusicFolder=/music \
     -Dairsonic.defaultPlaylistFolder=/playlists \
     -Dairsonic.defaultPodcastFolder=/podcasts \
-    -Dairsonic.home=/var/lib/subsonic \
+    -Dairsonic.home=/var/lib/airsonic \
     -Dairsonic.host=0.0.0.0 \
     -Dairsonic.httpsPort=4443 \
     -Dairsonic.port=4040 \
