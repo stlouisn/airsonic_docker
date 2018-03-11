@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Set timezone
-TZ=${TZ:-UTC}
-ln -fs /usr/share/zoneinfo/$TZ /etc/localtime
-echo $TZ > /etc/timezone
+## Set timezone
+#TZ=${TZ:-UTC}
+#ln -fs /usr/share/zoneinfo/$TZ /etc/localtime
+#echo $TZ > /etc/timezone
 
 # Make sure volumes are mounted correctly
 if [[ ! -d /var/lib/airsonic ]]; then
@@ -53,6 +53,8 @@ exec gosu airsonic /usr/bin/java \
     -Dairsonic.defaultPlaylistFolder=/playlists \
     -Dairsonic.defaultPodcastFolder=/podcasts \
     -Dairsonic.home=/var/lib/airsonic \
+    -Djava.awt.headless=true \
+    -Dserver.host=0.0.0.0 \
     -Dserver.port=4040 \
     -Xmx512m \
     -jar /usr/lib/airsonic/airsonic.war
