@@ -31,6 +31,13 @@ before_install:
   - docker version
 
 install:
+  - git clone https://github.com/airsonic/airsonic.git
+  - cd ./airsonic
+  - mvn clean package
+  - ls -l ./airsonic-main/target/airsonic.war
+  - cd ..
+
+before_script:
   - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' Dockerfile
   - chmod 0544 rootfs/usr/local/bin/*.sh
 
