@@ -44,9 +44,9 @@ ENV JAVA_HOME=/usr/lib/jvm/default-java/jre
 
 COPY --chown=airsonic:airsonic userfs /
 
-VOLUME /config \
-       /music \
+VOLUME /music \
        /playlists \
-       /podcasts
+       /podcasts \
+       var/lib/airsonic
 
 ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
