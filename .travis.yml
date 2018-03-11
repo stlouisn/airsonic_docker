@@ -32,15 +32,15 @@ env:
       DOWNLOAD_URL="https://github.com/airsonic/airsonic/releases/download/v{$DOCKER_VERSION}/airsonic.war"
 
 before_install:
-  #- sudo apt-get -q update
-  #- sudo apt-get -q -y upgrade
-  #- sudo apt-get -q -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - docker version
 
 install:
-  #- sudo apt-get install -q -y openjdk-8-jdk
-  #- java -version
-  #- apt-get install -y maven
+  - sudo add-apt-repository ppa:webupd8team/java
+  - sudo apt-get update -q
+  - sudo apt-get install -q -y openjdk-8-jdk
+  - java -version
+  - sudo apt-get install -y maven
+  - mvn -version | head -n 1
   #- git clone https://github.com/airsonic/airsonic.git
   #- cd airsonic
   #- mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
