@@ -26,17 +26,11 @@ env:
       DOCKER_VERSION="`curl -s https://airsonic.github.io/download/ | grep 'airsonic.war' | head -n 1 | awk -F '/v' {'print $2'} | awk -F '/' {'print $1'}`"
       DOWNLOAD_URL="https://github.com/airsonic/airsonic/releases/download/v{$DOCKER_VERSION}/airsonic.war"
 
-addons:
-  apt:
-    sources:
-    - sourceline: "ppa:openjdk-r/ppa"
-    packages:
-    - maven
-
 before_install:
-#  - sudo apt-get update -q
-#  - sudo apt-get upgrade -q -y
+  - sudo apt-get update -q
+  - sudo apt-get upgrade -q -y
   - docker version
+  - java -version
 
 install:
   #- git clone https://github.com/airsonic/airsonic.git
