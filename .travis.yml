@@ -33,33 +33,10 @@ env:
 
 before_install:
   - docker version
-  - echo $DOCKER_TAG
-  - echo $DOCKER_VERSION
-  - echo $DOWNLOAD_URL
-  - echo ${DOCKER_TAG}
-  - echo ${DOCKER_VERSION}
-  - echo ${DOWNLOAD_URL}
 
 install:
-  #- docker run -it --name build stlouisn/build:dev /bin/bash -c 'git clone https://github.com/airsonic/airsonic.git /build; cd /build; mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
-  #- docker cp build:/build/airsonic-main/target/airsonic.war ./rootfs/usr/lib/airsonic/.
-  #- chown ./rootfs/
-  - mkdir -p ./rootfs/usr/lib/airsonic
-  - curl -L "$DOWNLOAD_URL" -o "./rootfs/usr/lib/airsonic/airsonic.war"
-  #########
-  #- sudo add-apt-repository -y ppa:jonathonf/openjdk
-  #- sudo apt-get update -q
-  #- sudo apt-get install -q -y openjdk-8-jdk
-  #- java -version
-  #- sudo apt-get install -y maven
-  #- mvn -version | head -n 1
-  #- git clone https://github.com/airsonic/airsonic.git
-  #- cd airsonic
-  #- mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  #- ls -l ./airsonic-main/target/airsonic.war
-  #- cd ..
-  #- mkdir -p ./rootfs/usr/lib/airsonic
-  #- mv ./airsonic/airsonic-main/target/airsonic.war ./rootfs/usr/lib/airsonic/.
+  - mkdir -p ./userfs/usr/lib/airsonic
+  - curl -L ${DOWNLOAD_URL} -o ./userfs/usr/lib/airsonic/airsonic.war
 
 before_script:
   - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' Dockerfile
@@ -68,7 +45,6 @@ before_script:
 script:
   - >
     docker build
-    --build-arg DOWNLOAD_URL="$DOWNLOAD_URL"
     --label org.label-schema.build-date="$BUILD_DATE"
     --label org.label-schema.build-number="$BUILD_NUMBER"
     --label org.label-schema.description="$DOCKER_DESCRIPTION"
