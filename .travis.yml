@@ -1,6 +1,6 @@
 language: bash
 dist: xenial
-group: travis_latest
+#group: travis_latest
 sudo: required
 
 branches:
