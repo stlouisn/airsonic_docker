@@ -31,12 +31,16 @@ before_install:
   - docker version
 
 install:
-  - apt install -y default-jdk maven
+  - sudo apt-get install -y default-jdk maven
   - git clone https://github.com/airsonic/airsonic.git
+  - pwd
   - cd ./airsonic
-  - mvn clean package
+  - mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - ls -l ./airsonic-main/target/airsonic.war
   - cd ..
+  - pwd
+  - cd ~
+  - pwd
 
 before_script:
   - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' Dockerfile
