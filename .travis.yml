@@ -1,5 +1,6 @@
 language: bash
 dist: trusty
+group: travis_latest
 sudo: required
 
 branches:
@@ -28,12 +29,13 @@ env:
 addons:
   apt:
     packages:
-    - openjdk-8-jdk
     - maven
 
+jdk: openjdk8
+
 before_install:
-  - sudo apt-get update -q
-  - sudo apt-get upgrade -q -y
+#  - sudo apt-get update -q
+#  - sudo apt-get upgrade -q -y
   - docker version
 
 install:
