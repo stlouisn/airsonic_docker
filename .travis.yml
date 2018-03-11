@@ -39,7 +39,8 @@ install:
   #- docker cp build:/build/airsonic-main/target/airsonic.war ./rootfs/usr/lib/airsonic/.
   #- chown ./rootfs/
   - mkdir -p ./rootfs/usr/lib/airsonic
-  - curl -L "{$DOWNLOAD_URL}" -o "./rootfs/usr/lib/airsonic/airsonic.war"
+  - echo $DOWNLOAD_URL
+  - curl -L "$DOWNLOAD_URL" -o "./rootfs/usr/lib/airsonic/airsonic.war"
   #########
   #- sudo add-apt-repository -y ppa:jonathonf/openjdk
   #- sudo apt-get update -q
