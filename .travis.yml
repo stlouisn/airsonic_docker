@@ -1,6 +1,4 @@
-language:
-  - bash
-  - java
+language: bash
 dist: trusty
 sudo: required
 
@@ -33,6 +31,7 @@ before_install:
   - docker version
 
 install:
+  - apt install -y default-jdk maven
   - git clone https://github.com/airsonic/airsonic.git
   - cd ./airsonic
   - mvn clean package
