@@ -38,7 +38,7 @@ install:
   #- docker run -it --name build stlouisn/build:dev /bin/bash -c 'git clone https://github.com/airsonic/airsonic.git /build; cd /build; mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
   #- docker cp build:/build/airsonic-main/target/airsonic.war ./rootfs/usr/lib/airsonic/.
   #- chown ./rootfs/
-  - curl -L $DOWNLOAD_URL -o ./rootfs/usr/lib/airsonic/airsonic.war && \
+  - curl -L {$DOWNLOAD_URL} -o ./rootfs/usr/lib/airsonic/airsonic.war && \
   #########
   #- sudo add-apt-repository -y ppa:jonathonf/openjdk
   #- sudo apt-get update -q
