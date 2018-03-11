@@ -1,6 +1,6 @@
 FROM stlouisn/ubuntu:rolling
 
-COPY rootfs /
+COPY --chown=10000:10000 rootfs /
 
 ARG DOWNLOAD_URL
 
@@ -32,9 +32,9 @@ RUN \
         default-jre-headless && \
 
     # Install airsonic
-    mkdir -p /usr/lib/airsonic && \
-    curl -L $DOWNLOAD_URL -o /usr/lib/airsonic/airsonic.war && \
-    chown -R airsonic:airsonic /usr/lib/airsonic && \
+    #mkdir -p /usr/lib/airsonic && \
+    #curl -L $DOWNLOAD_URL -o /usr/lib/airsonic/airsonic.war && \
+    #chown -R airsonic:airsonic /usr/lib/airsonic && \
 
     # Clean apt-cache
     apt-get autoremove -y --purge && \
