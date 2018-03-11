@@ -1,5 +1,6 @@
 language: bash
 dist: xenial
+#dist: trusty
 #group: travis_latest
 sudo: required
 
@@ -27,12 +28,15 @@ env:
       DOWNLOAD_URL="https://github.com/airsonic/airsonic/releases/download/v{$DOCKER_VERSION}/airsonic.war"
 
 before_install:
-  - sudo apt-get update -q
-  - sudo apt-get upgrade -q -y
+  - sudo apt-get -q update
+  - sudo apt-get -q -y upgrade
+  - sudo apt-get -q -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - docker version
-  - java -version
 
 install:
+  - apt-get install -q -y openjdk-8-jdk
+  - java -version
+  #- apt-get install -y maven
   #- git clone https://github.com/airsonic/airsonic.git
   #- cd airsonic
   #- mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
