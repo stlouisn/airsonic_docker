@@ -1,5 +1,5 @@
 language: bash
-dist: trusty
+dist: xenial
 group: travis_latest
 sudo: required
 
@@ -31,19 +31,17 @@ addons:
     packages:
     - maven
 
-jdk: openjdk8
-
 before_install:
 #  - sudo apt-get update -q
 #  - sudo apt-get upgrade -q -y
   - docker version
 
 install:
-  - git clone https://github.com/airsonic/airsonic.git
-  - cd airsonic
-  - mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - ls -l ./airsonic-main/target/airsonic.war
-  - cd ..
+  #- git clone https://github.com/airsonic/airsonic.git
+  #- cd airsonic
+  #- mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  #- ls -l ./airsonic-main/target/airsonic.war
+  #- cd ..
 
 before_script:
   - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' Dockerfile
