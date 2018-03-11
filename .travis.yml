@@ -28,6 +28,8 @@ env:
 
 addons:
   apt:
+    sources:
+    - sourceline: "ppa:openjdk-r/ppa"
     packages:
     - maven
 
