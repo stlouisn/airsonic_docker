@@ -2,7 +2,7 @@ FROM stlouisn/ubuntu:rolling
 
 COPY --chown=10000:10000 rootfs /
 
-ARG DOWNLOAD_URL
+#ARG DOWNLOAD_URL
 
 RUN \
 
