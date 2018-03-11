@@ -1,6 +1,7 @@
 language: bash
 dist: trusty
 group: travis_latest
+#dist: xenial
 sudo: required
 
 branches: only: master
@@ -31,7 +32,7 @@ before_install:
   - docker version
 
 install:
-  - apt-get install -q -y openjdk-8-jdk
+  - sudo apt-get install -q -y openjdk-8-jdk
   - java -version
   #- apt-get install -y maven
   #- git clone https://github.com/airsonic/airsonic.git
