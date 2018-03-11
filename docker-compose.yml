@@ -11,9 +11,9 @@ services:
     restart: always
     volumes:
       - ./airsonic/config:/var/lib/airsonic:rw
-      - ./airsonic/music:/music:rw
-      - ./airsonic/playlists:/playlists:rw
-      - ./airsonic/podcasts:/podcasts:rw
+      - ./storage/music:/music:rw
+      - ./storage/playlists:/playlists:rw
+      - ./storage/podcasts:/podcasts:rw
     logging:
       driver: json-file
       options:
