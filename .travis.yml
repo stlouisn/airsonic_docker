@@ -11,7 +11,9 @@ addons:
       - openjdk-8-jdk
       - maven
 
-branches: only: master
+branches:
+  only:
+    - master
 
 env:
   global:
