@@ -5,12 +5,8 @@ sudo: required
 
 addons:
   apt:
-    sources:
-      - ppa:webupd8team/java
     packages:
       - docker-ce
-      - openjdk-8-jdk
-      - maven
 
 branches:
   only:
@@ -43,7 +39,7 @@ before_install:
 
 install:
   #- sudo apt-get install -q -y openjdk-8-jdk
-  - java -version
+  #- java -version
   #- apt-get install -y maven
   #- git clone https://github.com/airsonic/airsonic.git
   #- cd airsonic
