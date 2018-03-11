@@ -35,7 +35,7 @@ before_install:
   - docker version
 
 install:
-  - sudo add-apt-repository -y ppa:webupd8team/java
+  - sudo add-apt-repository -y ppa:jonathonf/openjdk
   - sudo apt-get update -q
   - sudo apt-get install -q -y openjdk-8-jdk
   - java -version
