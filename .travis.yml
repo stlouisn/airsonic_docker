@@ -29,17 +29,22 @@ env:
   matrix:
     - DOCKER_TAG="latest"
       DOCKER_VERSION="`curl -s https://airsonic.github.io/download/ | grep 'airsonic.war' | head -n 1 | awk -F '/v' {'print $2'} | awk -F '/' {'print $1'}`"
-      DOWNLOAD_URL="https://github.com/airsonic/airsonic/releases/download/v{$DOCKER_VERSION}/airsonic.war"
+      DOWNLOAD_URL="https://github.com/airsonic/airsonic/releases/download/v${DOCKER_VERSION}/airsonic.war"
 
 before_install:
   - docker version
+  - echo $DOCKER_TAG
+  - echo $DOCKER_VERSION
+  - echo $DOWNLOAD_URL
+  - echo ${DOCKER_TAG}
+  - echo ${DOCKER_VERSION}
+  - echo ${DOWNLOAD_URL}
 
 install:
   #- docker run -it --name build stlouisn/build:dev /bin/bash -c 'git clone https://github.com/airsonic/airsonic.git /build; cd /build; mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
   #- docker cp build:/build/airsonic-main/target/airsonic.war ./rootfs/usr/lib/airsonic/.
   #- chown ./rootfs/
   - mkdir -p ./rootfs/usr/lib/airsonic
-  - echo $DOWNLOAD_URL
   - curl -L "$DOWNLOAD_URL" -o "./rootfs/usr/lib/airsonic/airsonic.war"
   #########
   #- sudo add-apt-repository -y ppa:jonathonf/openjdk
