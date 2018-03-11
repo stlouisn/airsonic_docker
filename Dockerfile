@@ -42,7 +42,7 @@ RUN \
 
 ENV JAVA_HOME=/usr/lib/jvm/default-java/jre
 
-COPY --chown=10000:10000 userfs /
+COPY --chown=airsonic:airsonic userfs /
 
 VOLUME /music \
        /playlists \
