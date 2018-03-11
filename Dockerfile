@@ -1,8 +1,6 @@
 FROM stlouisn/ubuntu:rolling
 
-COPY --chown=10000:10000 rootfs /
-
-#ARG DOWNLOAD_URL
+COPY rootfs /
 
 RUN \
 
@@ -31,11 +29,6 @@ RUN \
     apt-get install -y --no-install-recommends \
         default-jre-headless && \
 
-    # Install airsonic
-    #mkdir -p /usr/lib/airsonic && \
-    #curl -L $DOWNLOAD_URL -o /usr/lib/airsonic/airsonic.war && \
-    #chown -R airsonic:airsonic /usr/lib/airsonic && \
-
     # Clean apt-cache
     apt-get autoremove -y --purge && \
     apt-get autoclean -y && \
@@ -48,6 +41,8 @@ RUN \
         /var/lib/apt/lists/*
 
 ENV JAVA_HOME=/usr/lib/jvm/default-java/jre
+
+COPY --chown=10000:10000 userfs /
 
 VOLUME /music \
        /playlists \
