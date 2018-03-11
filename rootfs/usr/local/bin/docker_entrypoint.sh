@@ -1,10 +1,5 @@
 #!/bin/bash
 
-## Set timezone
-#TZ=${TZ:-UTC}
-#ln -fs /usr/share/zoneinfo/$TZ /etc/localtime
-#echo $TZ > /etc/timezone
-
 # Make sure volumes are mounted correctly
 if [[ ! -d /var/lib/airsonic ]]; then
     echo -e "\nError: volume '/var/lib/airsonic/' not mounted.\n" >&2
