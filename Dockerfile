@@ -47,6 +47,6 @@ COPY --chown=airsonic:airsonic userfs /
 VOLUME /music \
        /playlists \
        /podcasts \
-       var/lib/airsonic
+       /var/lib/airsonic
 
 ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]
