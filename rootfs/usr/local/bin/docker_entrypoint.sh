@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#=========================================================================================
+
 # Make sure volume '/var/lib/airsonic' is mounted and writeable
 if [[ ! -d /var/lib/airsonic ]]; then
     echo -e "\nError: volume '/var/lib/airsonic' is not mounted.\n" >&2
@@ -26,6 +28,8 @@ fi
 if [[ `mount | grep '/podcasts' | awk -F '(' {'print $2'} | cut -c -2` == "rw" ]]; then
     chown -R airsonic:airsonic /podcasts
 fi
+
+#=========================================================================================
 
 # Change workdir
 cd /usr/lib/airsonic
