@@ -35,7 +35,8 @@ fi
 cd /usr/lib/airsonic
 
 # Start airsonic in console mode
-exec gosu airsonic /usr/bin/java \
+exec gosu airsonic \
+    /usr/bin/java \
     -Dairsonic.defaultMusicFolder=/music \
     -Dairsonic.defaultPlaylistFolder=/playlists \
     -Dairsonic.defaultPodcastFolder=/podcasts \
