@@ -1,6 +1,6 @@
 ### Airsonic Docker
 
-*Web-Based Media Streaming*
+*'Web-Based Media Streaming'*
 
 [![Version](https://images.microbadger.com/badges/version/stlouisn/airsonic.svg)](https://microbadger.com/images/stlouisn/airsonic)
 [![Commit](https://images.microbadger.com/badges/commit/stlouisn/airsonic.svg)](https://microbadger.com/images/stlouisn/airsonic)
