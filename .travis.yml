@@ -12,12 +12,8 @@ branches:
   only:
     - master
 
-before_install:
-  - docker version
-  
 env:
   global:
-    - docker pull stlouisn/ubuntu:rolling
     - BUILD_DATE="`date -u +%Y-%m-%dT%H:%M:%SZ`"
     - BUILD_NUMBER="$TRAVIS_BUILD_NUMBER"
     - DISTRIB_ID="`(docker pull stlouisn/ubuntu:rolling && docker run -it --rm stlouisn/ubuntu:rolling /bin/bash -c 'cat /etc/lsb-release') | grep DISTRIB_ID | awk -F '=' {'print $2'}`"
@@ -34,6 +30,9 @@ env:
     - DOCKER_TAG="latest"
       DOCKER_VERSION="`curl -s https://airsonic.github.io/download/ | grep 'airsonic.war' | head -n 1 | awk -F '/v' {'print $2'} | awk -F '/' {'print $1'}`"
       DOWNLOAD_URL="https://github.com/airsonic/airsonic/releases/download/v${DOCKER_VERSION}/airsonic.war"
+
+before_install:
+  - docker version
 
 install:
   - mkdir -p ./userfs/usr/lib/airsonic
