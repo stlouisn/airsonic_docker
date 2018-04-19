@@ -1,4 +1,4 @@
-FROM stlouisn/java:8
+FROM stlouisn/java:default
 
 COPY rootfs /
 
@@ -20,7 +20,7 @@ RUN \
         --comment airsonic \
         --gid 10000 \
         --uid 10000 \
-        airsonic && \
+        airsonic
 
 COPY --chown=airsonic:airsonic userfs /
 
