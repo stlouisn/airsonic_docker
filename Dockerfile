@@ -1,4 +1,4 @@
-FROM stlouisn/ubuntu:rolling
+FROM stlouisn/java:8
 
 COPY rootfs /
 
@@ -22,25 +22,12 @@ RUN \
         --uid 10000 \
         airsonic && \
 
-    # Update apt-cache
-    apt-get update && \
-
-    # Install Java
-    apt-get install -y --no-install-recommends \
-        default-jre-headless && \
-
-    # Clean apt-cache
-    apt-get autoremove -y --purge && \
-    apt-get autoclean -y && \
-
     # Cleanup temporary folders
     rm -rf \
         /root/.cache \
         /root/.wget-hsts \
         /tmp/* \
         /var/lib/apt/lists/*
-
-ENV JAVA_HOME=/usr/lib/jvm/default-java/jre
 
 COPY --chown=airsonic:airsonic userfs /
 
