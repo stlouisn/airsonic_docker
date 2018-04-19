@@ -22,13 +22,6 @@ RUN \
         --uid 10000 \
         airsonic && \
 
-    # Cleanup temporary folders
-    rm -rf \
-        /root/.cache \
-        /root/.wget-hsts \
-        /tmp/* \
-        /var/lib/apt/lists/*
-
 COPY --chown=airsonic:airsonic userfs /
 
 VOLUME /music \
