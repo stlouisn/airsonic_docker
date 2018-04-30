@@ -1,4 +1,4 @@
-FROM stlouisn/java:8
+FROM stlouisn/java:default
 
 COPY rootfs /
 
