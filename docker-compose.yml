@@ -1,23 +1,24 @@
-version: '2.3'
+version: '2.4'
 
 services:
 
   airsonic:
-    image: stlouisn/airsonic:latest
+    image: stlouisn/airsonic
     container_name: airsonic
     hostname: airsonic
     environment:
+      - LC_ALL=C.UTF-8
       - TZ=UTC
     restart: always
     volumes:
       - ./airsonic/config:/var/lib/airsonic:rw
-      - ./storage/music:/music:rw
-      - ./storage/playlists:/playlists:rw
-      - ./storage/podcasts:/podcasts:rw
+      - /media/music:/music:rw
+      - /media/playlists:/playlists:rw
+      - /media/podcasts:/podcasts:rw
     logging:
       driver: json-file
       options:
         max-size: "10m"
         max-file: "3"
     ports:
-      - 4040
+      - 4040:4040
