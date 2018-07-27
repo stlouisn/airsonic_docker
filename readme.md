@@ -33,4 +33,4 @@ Airsonic is a web-based media streamer.
 
 ### Links
 
-###### *https://airsonic.github.io/*
+*https://airsonic.github.io/*
