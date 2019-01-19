@@ -15,7 +15,7 @@
 [![Docker Stars][docker_stars_logo]][docker_hub_url]
 [![Docker Pulls][docker_pulls_logo]][docker_hub_url]
 
-Airsonic is a web-based media streamer.
+Airsonic is a web-based music player and streamer.
 
 ### Tags
 
