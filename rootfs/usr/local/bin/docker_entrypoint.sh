@@ -2,17 +2,8 @@
 
 #=========================================================================================
 
-# Make sure volume '/var/lib/airsonic' is mounted and writeable
-if [[ ! -d /var/lib/airsonic ]]; then
-    echo -e "\nError: volume '/var/lib/airsonic' is not mounted.\n" >&2
-    exit 1
-elif [[ `mount | grep '/var/lib/airsonic' | awk -F '(' {'print $2'} | cut -c -2` == "ro" ]]; then
-    echo -e "\nError: volume '/var/lib/airsonic' is readonly.\n" >&2
-    exit 1
-fi
-
-# Fix user and group ownerships for '/var/lib/airsonic'
-chown -R airsonic:airsonic /var/lib/airsonic
+# Fix user and group ownerships for '/config'
+chown -R airsonic:airsonic /config
 
 # Fix user and group ownerships for '/music'
 if [[ `mount | grep '/music' | awk -F '(' {'print $2'} | cut -c -2` == "rw" ]]; then
@@ -40,7 +31,7 @@ exec gosu airsonic \
     -Dairsonic.defaultMusicFolder=/music \
     -Dairsonic.defaultPlaylistFolder=/playlists \
     -Dairsonic.defaultPodcastFolder=/podcasts \
-    -Dairsonic.home=/var/lib/airsonic \
+    -Dairsonic.home=/config \
     -Djava.awt.headless=true \
     -Dserver.host=0.0.0.0 \
     -Dserver.port=4040 \
