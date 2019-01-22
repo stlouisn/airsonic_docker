@@ -11,7 +11,7 @@ services:
       - TZ=UTC
     restart: always
     volumes:
-      - /docker/airsonic/config:/var/lib/airsonic:rw
+      - /docker/airsonic/config:/config:rw
       - /media/music:/music:rw
       - /media/playlists:/playlists:rw
       - /media/podcasts:/podcasts:rw
