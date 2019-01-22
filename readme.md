@@ -16,7 +16,7 @@
 [![Docker Pulls][docker_pulls_logo]][docker_hub_url]
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Airsonic is a web-based music player and streamer.
+Airsonic is a web-based music streamer, providing ubiquitous access to your music. Use it to share your music with friends, or to listen to your own music while at work.
 
 ### Tags
 
