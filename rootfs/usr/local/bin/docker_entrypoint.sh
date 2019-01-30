@@ -1,4 +1,4 @@
-#!/bin/bash
+# ! /bin/bash
 
 #=========================================================================================
 
@@ -8,16 +8,22 @@ chown -R airsonic:airsonic /config
 # Fix user and group ownerships for '/music'
 if [[ `mount | grep '/music' | awk -F '(' {'print $2'} | cut -c -2` == "rw" ]]; then
     chown -R airsonic:airsonic /music
+else
+    echo -e "\nWarning: volume '/music' is readonly.\n" >&2
 fi
 
 # Fix user and group ownerships for '/playlists'
 if [[ `mount | grep '/playlists' | awk -F '(' {'print $2'} | cut -c -2` == "rw" ]]; then
     chown -R airsonic:airsonic /playlists
+else
+    echo -e "\nWarning: volume '/playlists' is readonly.\n" >&2
 fi
 
 # Fix user and group ownerships for '/podcasts'
 if [[ `mount | grep '/podcasts' | awk -F '(' {'print $2'} | cut -c -2` == "rw" ]]; then
     chown -R airsonic:airsonic /podcasts
+else
+    echo -e "\nWarning: volume '/podcasts' is readonly.\n" >&2
 fi
 
 #=========================================================================================
