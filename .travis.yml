@@ -1,20 +1,18 @@
-language: bash
-dist: trusty
+dist: xenial
 group: travis_latest
-sudo: required
 
 if: |
-  branch = master AND \
-  ! commit_message =~ /readme.md/ AND \
-  ! commit_message =~ /docker-compose.yml/ OR \
-  type = cron
+  branch = master AND ! commit_message =~ /readme.md/ AND ! commit_message =~ /docker-compose.yml/
+  OR type = cron
 
-addons:
-  apt:
-    packages:
-      - docker-ce
+language: bash
+sudo: required
+
+services:
+  - docker
 
 env:
+
   global:
     - BUILD_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
     - BUILD_NUMBER="${TRAVIS_BUILD_NUMBER}"
@@ -23,24 +21,34 @@ env:
     - DOCKER_NAME="airsonic"
     - DOCKER_URL="https://airsonic.github.io/"
     - SCHEMA_VERSION="1.0"
+    - UBUNTU_CODENAME="$(curl -ksSL https://raw.githubusercontent.com/tianon/docker-brew-ubuntu-core/master/rolling)"
     - VCS_REF="$(git rev-parse --short HEAD)"
     - VCS_URL="$(git remote get-url origin | head -c-5)"
+
   matrix:
     - DOCKER_TAG="latest"
       DOCKER_VERSION="$(curl -s https://airsonic.github.io/download/ | grep 'airsonic.war' | head -n 1 | awk -F '/v' {'print $2'} | awk -F '/' {'print $1'})"
-      DOWNLOAD_URL="https://github.com/airsonic/airsonic/releases/download/v${DOCKER_VERSION}/airsonic.war"
 
 before_install:
-  - docker version
   - sudo /sbin/sysctl -w net.ipv4.conf.all.forwarding=1
+  - sudo bash travis/docker.sh
+  - sudo docker version
 
 install:
-  - mkdir -p ./userfs/usr/lib/airsonic
-  - curl -L -o ./userfs/usr/lib/airsonic/airsonic.war ${DOWNLOAD_URL}
+  - sudo docker run --privileged linuxkit/binfmt:v0.7
+  - sudo docker run --privileged -d -p 1234:1234 --name buildkit moby/buildkit:latest --addr tcp://0.0.0.0:1234 --oci-worker-platform linux/arm --oci-worker-platform linux/armhf --oci-worker-platform linux/arm64 --oci-worker-platform linux/amd64
+  - sudo docker cp buildkit:/usr/bin/buildctl /usr/bin/
+  - export BUILDKIT_HOST=tcp://0.0.0.0:1234
 
 before_script:
-  - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' Dockerfile
+  - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' docker/Dockerfile*
   - chmod 0544 rootfs/usr/local/bin/docker_entrypoint.sh
+  - mkdir -p ./userfs/Airsonic
+  - curl -ksSL -o airsonic.war "https://github.com/airsonic/airsonic/releases/download/v${DOCKER_VERSION}/airsonic.war"
+
+  - mkdir -p ./userfs/usr/lib/airsonic
+  - curl -L -o ./userfs/usr/lib/airsonic/airsonic.war ${DOWNLOAD_URL}
+      DOWNLOAD_URL=
 
 script:
   - >
