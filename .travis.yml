@@ -44,8 +44,8 @@ install:
 before_script:
   - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' dockerfiles/*
   - chmod 0544 rootfs/usr/local/bin/docker_entrypoint.sh
-  - mkdir -p ./userfs/Airsonic
-  - curl -ksSL -o /userfs/Airsonic/airsonic.war "https://github.com/airsonic/airsonic/releases/download/v${DOCKER_VERSION}/airsonic.war"
+  - mkdir -p ./userfs/airsonic
+  - curl -ksSL -o /userfs/airsonic/airsonic.war "https://github.com/airsonic/airsonic/releases/download/v${DOCKER_VERSION}/airsonic.war"
 
 script:
   - sudo bash travis/build.sh
