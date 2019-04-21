@@ -20,8 +20,8 @@ Airsonic is a web-based music streamer, providing ubiquitous access to your musi
 
 ### Tags
 
-[![Version](https://images.microbadger.com/badges/version/stlouisn/lidarr.svg)][microbadger_url]
-[![Layers](https://images.microbadger.com/badges/image/stlouisn/lidarr.svg)][microbadger_url]
+[![Version](https://images.microbadger.com/badges/version/stlouisn/airsonic:latest.svg)][microbadger_url]
+[![Layers](https://images.microbadger.com/badges/image/stlouisn/airsonic:latest.svg)][microbadger_url]
 
 ### Feature Requests
 
