@@ -1,12 +1,11 @@
+os: linux
 dist: bionic
 group: travis_latest
+language: shell
 
 if: |
   branch = master AND ! commit_message =~ /readme.md/ AND ! commit_message =~ /docker-compose.yml/
   OR type = cron
-
-language: bash
-sudo: required
 
 services:
   - docker
@@ -21,13 +20,12 @@ env:
     - DOCKER_NAME="airsonic"
     - DOCKER_URL="https://airsonic.github.io/"
     - OS_NAME="ubuntu"
-    - OS_CODENAME="$(curl -ksSL https://raw.githubusercontent.com/tianon/docker-brew-ubuntu-core/master/rolling)"
+    - OS_CODENAME="$(curl -fsSL https://raw.githubusercontent.com/tianon/docker-brew-ubuntu-core/master/rolling)"
     - SCHEMA_VERSION="1.0"
     - VCS_REF="$(git rev-parse --short HEAD)"
     - VCS_URL="$(git remote get-url origin | head -c-5)"
-
     - DOCKER_TAG="latest"
-    - DOCKER_VERSION="$(curl -ksSL https://airsonic.github.io/download/ | grep 'airsonic.war' | head -n 1 | awk -F '/v' {'print $2'} | awk -F '/' {'print $1'})"
+    - DOCKER_VERSION="$(sudo bash travis/get_version.sh)"
 
 before_install:
   - sudo /sbin/sysctl -w net.ipv4.conf.all.forwarding=1
@@ -44,7 +42,7 @@ before_script:
   - sed -i -e '/^$/d' -e 's/^[ \t]*//' -e '/^#/d' dockerfiles/*
   - chmod 0544 rootfs/usr/local/bin/docker_entrypoint.sh
   - mkdir -p ./userfs/airsonic
-  - curl -ksSL -o ./userfs/airsonic/airsonic.war "https://github.com/airsonic/airsonic/releases/download/v${DOCKER_VERSION}/airsonic.war"
+  - curl -sSL -o ./userfs/airsonic/airsonic.war "https://github.com/airsonic/airsonic/releases/download/v${DOCKER_VERSION}/airsonic.war"
 
 script:
   - sudo bash travis/build.sh
