@@ -1,5 +1,5 @@
-[travis_logo]: https://travis-ci.org/stlouisn/airsonic_docker.svg?branch=master
-[travis_url]: https://travis-ci.org/stlouisn/airsonic_docker
+[travis_logo]: https://travis-ci.com/stlouisn/airsonic_docker.svg?branch=master
+[travis_url]: https://travis-ci.com/stlouisn/airsonic_docker
 [docker_stars_logo]: https://img.shields.io/docker/stars/stlouisn/airsonic.svg
 [docker_pulls_logo]: https://img.shields.io/docker/pulls/stlouisn/airsonic.svg
 [docker_hub_url]: https://hub.docker.com/r/stlouisn/airsonic
